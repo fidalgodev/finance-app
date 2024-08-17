@@ -1,4 +1,11 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
@@ -35,6 +42,10 @@ export const MobileNav = ({ routes }: Props) => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="px-2">
+        <SheetHeader>
+          <SheetTitle hidden>Navigation</SheetTitle>
+          <SheetDescription hidden>The navigation menu</SheetDescription>
+        </SheetHeader>
         <nav className="flex flex-col gap-y-4 pt-6">
           {routes.map((route) => (
             <Button
