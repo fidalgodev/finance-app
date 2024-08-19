@@ -24,7 +24,7 @@ export const MobileNav = ({ routes }: Props) => {
 
   // This function is used to navigate to a different page when a mobile button is clicked
   // We don't use Link because it won't close the mobile menu
-  const onMobileButtonClick = (href: string) => {
+  const onButtonClick = (href: string) => {
     router.push(href);
     setIsOpen(false);
   };
@@ -52,7 +52,7 @@ export const MobileNav = ({ routes }: Props) => {
               key={route.href}
               variant={isActive(route.href) ? "secondary" : "ghost"}
               className="w-full justify-start"
-              onClick={() => onMobileButtonClick(route.href)}
+              onClick={() => onButtonClick(route.href)}
             >
               {route.label}
             </Button>
