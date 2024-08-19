@@ -8,6 +8,13 @@
       "when": 1724099708000,
       "tag": "0000_dizzy_strong_guy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724101691961,
+      "tag": "0001_foamy_pestilence",
+      "breakpoints": true
     }
   ]
 }
