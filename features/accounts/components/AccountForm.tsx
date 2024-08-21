@@ -3,6 +3,9 @@ import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { insertAccountSchema } from "@/db/schema";
@@ -20,9 +23,7 @@ export type FormValues = z.input<typeof insertAccountSchema>;
 type Props = {
   id?: string;
   initialValues?: FormValues;
-  onSubmit: (values: FormValues) => void;
   onDelete?: () => void;
-  disabled?: boolean;
 };
 
 export const AccountForm = ({
@@ -30,17 +31,25 @@ export const AccountForm = ({
   initialValues = {
     name: "",
   },
-  onSubmit,
   onDelete,
-  disabled,
 }: Props) => {
+  const { onClose } = useNewAccount();
+
+  const mutation = useCreateAccount();
+
+  const isDisabled = mutation.isPending;
+
   const form = useForm<FormValues>({
     resolver: zodResolver(insertAccountSchema),
     defaultValues: initialValues,
   });
 
   const handleSubmit = (values: FormValues) => {
-    onSubmit(values);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   const handleDelete = () => {
@@ -61,7 +70,7 @@ export const AccountForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  disabled={disabled}
+                  disabled={isDisabled}
                   placeholder="E.g. Current, Savings, Cash, Credit Card"
                   {...field}
                 />
@@ -69,13 +78,13 @@ export const AccountForm = ({
             </FormItem>
           )}
         />
-        <Button className="w-full" disabled={disabled}>
+        <Button className="w-full" disabled={isDisabled}>
           {id ? "Save changes" : "Create account"}
         </Button>
         {id && (
           <Button
             type="button"
-            disabled={disabled}
+            disabled={isDisabled}
             onClick={handleDelete}
             className="w-full"
             variant="outline"
