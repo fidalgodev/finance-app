@@ -1,9 +1,9 @@
 "use client";
 
-import { NavButton } from "@/components/NavButton";
+import { NavButton } from "@/components/nav/NavButton";
 import { usePathname } from "next/navigation";
 import { useMedia } from "react-use";
-import { MobileNav } from "@/components/MobileNav";
+import { MobileNav } from "@/components/nav/MobileNav";
 
 const routes = [
   {

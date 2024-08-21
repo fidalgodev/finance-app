@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { QueryProvider } from "@/providers/QueryProvider";
 import "./globals.css";
+import { SheetProvider } from "@/providers/SheetProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
     <ClerkProvider afterSignOutUrl="/">
       <html lang="en">
         <body className={inter.className}>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <SheetProvider />
+            {children}
+          </QueryProvider>
         </body>
       </html>
     </ClerkProvider>

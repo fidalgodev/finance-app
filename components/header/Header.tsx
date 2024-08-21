@@ -1,5 +1,5 @@
-import { HeaderLogo } from "@/components/HeaderLogo";
-import { Navigation } from "@/components/Navigation";
+import { HeaderLogo } from "@/components/header/HeaderLogo";
+import { Navigation } from "@/components/nav/Navigation";
 import { WelcomeMsg } from "@/components/WelcomeMsg";
 
 import { UserButton, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
