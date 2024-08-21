@@ -1,6 +1,6 @@
 "use client";
 
-import { NewAccountSheet } from "@/components/accounts/NewAccountSheet";
+import { NewAccountSheet } from "@/features/accounts/components/NewAccountSheet";
 
 export const SheetProvider = () => {
   return (
