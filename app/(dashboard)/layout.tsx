@@ -8,10 +8,7 @@ const DashboardLayout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <main className="px-3 lg:px-14">
-        <div>Dashboard Layout</div>
-        {children}
-      </main>
+      <main className="px-3 lg:px-14">{children}</main>
     </>
   );
 };

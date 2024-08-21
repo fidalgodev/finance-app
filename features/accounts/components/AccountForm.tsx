@@ -15,10 +15,9 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 
-export type FormValues = z.input<typeof insertAccountSchema>;
+export type FormValues = z.infer<typeof insertAccountSchema>;
 
 type Props = {
   id?: string;
