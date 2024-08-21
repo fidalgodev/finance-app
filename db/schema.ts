@@ -1,8 +1,17 @@
 import { pgTable, serial, text } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const accounts = pgTable("accounts", {
-  id: serial("id").primaryKey(),
+  id: text("id").primaryKey(),
   plaidId: text("plaid_id"),
   name: text("name").notNull(),
   userId: text("user_id").notNull(),
 });
+
+// Schema for inserting a new account
+export const insertAccountSchema = createInsertSchema(accounts).pick({
+  name: true,
+});
+
+// Schema for selection an account
+export const selectAccountSchema = createSelectSchema(accounts);

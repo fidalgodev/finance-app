@@ -15,6 +15,13 @@
       "when": 1724101691961,
       "tag": "0001_foamy_pestilence",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724272794227,
+      "tag": "0002_sudden_franklin_richards",
+      "breakpoints": true
     }
   ]
 }

@@ -1,5 +1,13 @@
 import { migrate } from "drizzle-orm/neon-http/migrator";
-import { db } from "@/db/drizzle";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { config } from "dotenv";
+
+// Load environment variables from .env file since we are outside of the Next.js environment
+config({ path: ".env.local" });
+
+export const sql = neon(process.env.DATABASE_URL!);
+export const db = drizzle(sql);
 
 const main = async () => {
   try {
