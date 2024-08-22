@@ -1,0 +1,1 @@
+ALTER TABLE "accounts" RENAME COLUMN "plaid_id" TO "plaid_ids";

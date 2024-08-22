@@ -1,5 +1,5 @@
-import { defineConfig } from "drizzle-kit";
 import { config } from "dotenv";
+import { defineConfig } from "drizzle-kit";
 
 // Load environment variables from .env file since we are outside of the Next.js environment
 config({ path: ".env.local" });
