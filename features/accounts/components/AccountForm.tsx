@@ -3,9 +3,8 @@ import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useCreateAccount } from "@/features/accounts/api/use-create-account";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
-
+import { useCreateAccount } from "@/features/accounts/api/useCreateAccount";
+import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { insertAccountSchema } from "@/db/schema";

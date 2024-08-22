@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
   });
 
   // Num of selected rows
-  const selectedRows = table.getFilteredSelectedRowModel().rows.length;
+  const numSelectedRows = table.getFilteredSelectedRowModel().rows.length;
 
   return (
     <div>
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {selectedRows > 0 && (
+        {numSelectedRows > 0 && (
           <Button
             variant="outline"
             size="sm"
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
             disabled={disabled}
           >
             <Trash className="mr-2 size-4" />
-            Delete ({selectedRows})
+            Delete ({numSelectedRows})
           </Button>
         )}
       </div>

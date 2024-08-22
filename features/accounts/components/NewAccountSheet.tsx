@@ -1,5 +1,5 @@
 import { AccountForm } from "@/features/accounts/components/AccountForm";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
 
 import {
   Sheet,

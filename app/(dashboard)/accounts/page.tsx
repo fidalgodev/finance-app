@@ -1,42 +1,35 @@
 "use client";
-import { Plus } from "lucide-react";
+import { useGetAccounts } from "@/features/accounts/api/useGetAccount";
+import { Loader2, Plus } from "lucide-react";
 
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/DataTable";
-import { columns, Payment } from "@/app/(dashboard)/accounts/columns";
-
-const data: Payment[] = [
-  {
-    id: "728ed52f",
-    amount: 100,
-    status: "pending",
-    email: "m@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 50,
-    status: "success",
-    email: "a@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 50,
-    status: "success",
-    email: "a@example.com",
-  },
-  {
-    id: "728ed52f",
-    amount: 50,
-    status: "success",
-    email: "a@example.com",
-  },
-];
+import { columns } from "@/app/(dashboard)/accounts/columns";
 
 const AccountsPage = () => {
   const { onOpen } = useNewAccount();
+  const { data: accounts, isLoading } = useGetAccounts();
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto -mt-24 max-w-screen-xl pb-10">
+        <Card className="border-none drop-shadow-sm">
+          <CardHeader>
+            <Skeleton className="h-8 w-48" />
+          </CardHeader>
+          <CardContent>
+            <div className="flex h-[500px] items-center justify-center">
+              <Loader2 className="size-6 animate-spin text-slate-300" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto -mt-24 max-w-screen-xl pb-10">
@@ -51,8 +44,8 @@ const AccountsPage = () => {
         <CardContent>
           <DataTable
             columns={columns}
-            data={data}
-            filterKey="email"
+            data={accounts || []}
+            filterKey="name"
             onDelete={() => {}}
           />
         </CardContent>

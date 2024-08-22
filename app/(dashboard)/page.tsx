@@ -1,5 +1,5 @@
 "use client";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
 
 export default function Home() {
   const { onOpen } = useNewAccount();
