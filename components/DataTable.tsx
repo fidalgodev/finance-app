@@ -83,6 +83,11 @@ export function DataTable<TData, TValue>({
             variant="outline"
             size="sm"
             className="ml-auto text-sm font-normal"
+            onClick={() => {
+              onDelete(table.getFilteredSelectedRowModel().rows);
+              // Reset row selection
+              table.resetRowSelection();
+            }}
             disabled={disabled}
           >
             <Trash className="mr-2 size-4" />

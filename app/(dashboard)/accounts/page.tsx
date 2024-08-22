@@ -9,12 +9,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "@/app/(dashboard)/accounts/columns";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDelete";
 
 const AccountsPage = () => {
   const { onOpen } = useNewAccount();
-  const { data: accounts, isLoading } = useGetAccounts();
+  const { data: accounts, isLoading: isLoadingAccounts } = useGetAccounts();
+  const { mutate: bulkDeleteAccounts, isPending: isDeletingAccounts } =
+    useBulkDeleteAccounts();
 
-  if (isLoading) {
+  const isDisabled = isDeletingAccounts || isLoadingAccounts;
+
+  if (isLoadingAccounts) {
     return (
       <div className="mx-auto -mt-24 max-w-screen-xl pb-10">
         <Card className="border-none drop-shadow-sm">
@@ -46,7 +51,11 @@ const AccountsPage = () => {
             columns={columns}
             data={accounts || []}
             filterKey="name"
-            onDelete={() => {}}
+            onDelete={(rows) => {
+              const ids = rows.map((r) => r.original.id);
+              bulkDeleteAccounts({ ids });
+            }}
+            disabled={isDisabled}
           />
         </CardContent>
       </Card>
