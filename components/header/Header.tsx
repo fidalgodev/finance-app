@@ -1,9 +1,9 @@
+import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
+import { Loader2 } from "lucide-react";
+
+import { WelcomeMsg } from "@/components/WelcomeMsg";
 import { HeaderLogo } from "@/components/header/HeaderLogo";
 import { Navigation } from "@/components/nav/Navigation";
-import { WelcomeMsg } from "@/components/WelcomeMsg";
-
-import { UserButton, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
-import { Loader2 } from "lucide-react";
 
 export const Header = () => {
   return (

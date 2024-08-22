@@ -1,3 +1,16 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "^@/features/(.*)$",
+    "^@/app/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/components/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

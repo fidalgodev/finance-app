@@ -1,14 +1,13 @@
-import { z } from "zod";
-import { Hono } from "hono";
-import { HTTPException } from "hono/http-exception";
-import { insertAccountSchema } from "@/db/schema";
-import { createId } from "@paralleldrive/cuid2";
-import { zValidator } from "@hono/zod-validator";
-
 import { db } from "@/db/drizzle";
+import { insertAccountSchema } from "@/db/schema";
 import { accounts } from "@/db/schema";
 import { getAuth } from "@hono/clerk-auth";
-import { eq, and, inArray } from "drizzle-orm";
+import { zValidator } from "@hono/zod-validator";
+import { createId } from "@paralleldrive/cuid2";
+import { and, eq, inArray } from "drizzle-orm";
+import { Hono } from "hono";
+import { HTTPException } from "hono/http-exception";
+import { z } from "zod";
 
 const app = new Hono()
 

@@ -18,8 +18,7 @@ type Props = {
 
 export const Actions = ({ id }: Props) => {
   const { onOpen } = useEditAccountSheet();
-  const { mutate: deleteAccount, isPending: deletingAccount } =
-    useDeleteAccount(id);
+  const deleteAccountMutation = useDeleteAccount(id);
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
@@ -30,9 +29,11 @@ export const Actions = ({ id }: Props) => {
     const ok = await confirm();
 
     if (ok) {
-      deleteAccount();
+      deleteAccountMutation.mutate();
     }
   };
+
+  const isDisabled = deleteAccountMutation.isPending;
 
   return (
     <>
@@ -44,14 +45,11 @@ export const Actions = ({ id }: Props) => {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            disabled={deletingAccount}
-            onClick={() => onOpen(id)}
-          >
+          <DropdownMenuItem disabled={isDisabled} onClick={() => onOpen(id)}>
             <Edit className="mr-2 size-4" />
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem disabled={deletingAccount} onClick={onDelete}>
+          <DropdownMenuItem disabled={isDisabled} onClick={onDelete}>
             <Trash className="mr-2 size-4" />
             Delete
           </DropdownMenuItem>

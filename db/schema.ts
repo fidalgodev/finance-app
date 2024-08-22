@@ -1,4 +1,4 @@
-import { pgTable, serial, text } from "drizzle-orm/pg-core";
+import { pgTable, text } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const accounts = pgTable("accounts", {

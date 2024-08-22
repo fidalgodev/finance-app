@@ -1,7 +1,7 @@
-import { Hono } from "hono";
-import { handle } from "hono/vercel";
 import { clerkMiddleware } from "@hono/clerk-auth";
+import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
+import { handle } from "hono/vercel";
 
 import accounts from "./accounts";
 
