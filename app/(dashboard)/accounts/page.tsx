@@ -2,7 +2,7 @@
 import { useGetAccounts } from "@/features/accounts/api/useGetAccounts";
 import { Loader2, Plus } from "lucide-react";
 
-import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
+import { useNewAccountSheet } from "@/features/accounts/hooks/useNewAccountSheet";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
@@ -12,10 +12,13 @@ import { columns } from "@/app/(dashboard)/accounts/columns";
 import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDeleteAccounts";
 
 const AccountsPage = () => {
-  const { onOpen } = useNewAccount();
-  const { data: accounts, isLoading: isLoadingAccounts } = useGetAccounts();
-  const { mutate: bulkDeleteAccounts, isPending: isDeletingAccounts } =
-    useBulkDeleteAccounts();
+  const { onOpen } = useNewAccountSheet();
+
+  const getAccountsQuery = useGetAccounts();
+  const deleteAccountsMutation = useBulkDeleteAccounts();
+
+  const isLoadingAccounts = getAccountsQuery.isLoading;
+  const isDeletingAccounts = deleteAccountsMutation.isPending;
 
   const isDisabled = isDeletingAccounts || isLoadingAccounts;
 
@@ -41,7 +44,7 @@ const AccountsPage = () => {
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">Accounts page</CardTitle>
-          <Button size="sm" onClick={onOpen}>
+          <Button size="sm" onClick={() => onOpen()}>
             <Plus className="mr-2 size-4" />
             Add new
           </Button>
@@ -49,11 +52,11 @@ const AccountsPage = () => {
         <CardContent>
           <DataTable
             columns={columns}
-            data={accounts || []}
+            data={getAccountsQuery.data || []}
             filterKey="name"
             onDelete={(rows) => {
               const ids = rows.map((r) => r.original.id);
-              bulkDeleteAccounts({ ids });
+              deleteAccountsMutation.mutate({ ids });
             }}
             disabled={isDisabled}
           />

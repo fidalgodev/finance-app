@@ -1,5 +1,5 @@
 import { AccountForm } from "@/features/accounts/components/AccountForm";
-import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
+import { useNewAccountSheet } from "@/features/accounts/hooks/useNewAccountSheet";
 import { useCreateAccount } from "@/features/accounts/api/useCreateAccount";
 import { FormValues } from "@/features/accounts/components/AccountForm";
 
@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/sheet";
 
 export const NewAccountSheet = () => {
-  const { isOpen, onClose } = useNewAccount();
+  const { isOpen, onClose } = useNewAccountSheet();
 
-  const { mutate, isPending } = useCreateAccount();
+  const createAccountMutation = useCreateAccount();
 
   const onSubmit = (values: FormValues) => {
-    mutate(values, {
+    createAccountMutation.mutate(values, {
       onSuccess: () => {
         onClose();
       },
@@ -33,7 +33,10 @@ export const NewAccountSheet = () => {
             Create a new account to track your transactions.
           </SheetDescription>
         </SheetHeader>
-        <AccountForm onSubmit={onSubmit} disabled={isPending} />
+        <AccountForm
+          onSubmit={onSubmit}
+          disabled={createAccountMutation.isPending}
+        />
       </SheetContent>
     </Sheet>
   );

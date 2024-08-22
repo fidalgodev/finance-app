@@ -1,6 +1,6 @@
 "use client";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useOpenAccount } from "@/features/accounts/hooks/useOpenAccount";
+import { useEditAccountSheet } from "@/features/accounts/hooks/useEditAccountSheet";
 import { useDeleteAccount } from "@/features/accounts/api/useDeleteAccount";
 import { useConfirm } from "@/hooks/useConfirm";
 
@@ -17,7 +17,7 @@ type Props = {
 };
 
 export const Actions = ({ id }: Props) => {
-  const { onOpen } = useOpenAccount();
+  const { onOpen } = useEditAccountSheet();
   const { mutate: deleteAccount, isPending: deletingAccount } =
     useDeleteAccount(id);
 

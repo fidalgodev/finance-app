@@ -1,11 +1,10 @@
 import { Loader2 } from "lucide-react";
 import { AccountForm } from "@/features/accounts/components/AccountForm";
-import { useOpenAccount } from "@/features/accounts/hooks/useOpenAccount";
+import { useEditAccountSheet } from "@/features/accounts/hooks/useEditAccountSheet";
 import { useEditAccount } from "@/features/accounts/api/useEditAccount";
 import { useDeleteAccount } from "@/features/accounts/api/useDeleteAccount";
 import { useGetAccount } from "@/features/accounts/api/useGetAccount";
 import { FormValues } from "@/features/accounts/components/AccountForm";
-
 import { useConfirm } from "@/hooks/useConfirm";
 
 import {
@@ -17,20 +16,19 @@ import {
 } from "@/components/ui/sheet";
 
 export const EditAccountSheet = () => {
-  const { isOpen, onClose, id } = useOpenAccount();
+  const { isOpen, onClose, id } = useEditAccountSheet();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
     "You're about to delete this account. This action cannot be undone.",
   );
 
-  const { data: account, isLoading: isFetchingAccount } = useGetAccount(id);
-  const { mutate: editAccount, isPending: editingAccount } = useEditAccount(id);
-  const { mutate: deleteAccount, isPending: deletingAccount } =
-    useDeleteAccount(id);
+  const getAccountQuery = useGetAccount(id);
+  const editAccountMutation = useEditAccount(id);
+  const deleteAccountMutation = useDeleteAccount(id);
 
   const onSubmit = (values: FormValues) => {
-    editAccount(values, {
+    editAccountMutation.mutate(values, {
       onSuccess: () => {
         onClose();
       },
@@ -38,16 +36,17 @@ export const EditAccountSheet = () => {
   };
 
   const initialValues = {
-    name: account?.name || "",
+    name: getAccountQuery.data?.name || "",
   };
 
-  const isDisabled = editingAccount || deletingAccount;
+  const isDisabled =
+    editAccountMutation.isPending || deleteAccountMutation.isPending;
 
   const onDelete = async () => {
     const ok = await confirm();
 
     if (ok) {
-      deleteAccount(undefined, {
+      deleteAccountMutation.mutate(undefined, {
         onSuccess: () => {
           onClose();
         },
@@ -63,7 +62,7 @@ export const EditAccountSheet = () => {
             <SheetTitle>Edit Account</SheetTitle>
             <SheetDescription>Edit the account details below.</SheetDescription>
           </SheetHeader>
-          {isFetchingAccount ? (
+          {getAccountQuery.isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader2 className="size-4 animate-spin text-muted-foreground" />
             </div>

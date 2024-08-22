@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-type OpenAccountState = {
+type EditAccountSheetState = {
   id?: string;
   isOpen: boolean;
   onOpen: (id: string) => void;
   onClose: () => void;
 };
 
-export const useOpenAccount = create<OpenAccountState>((set) => ({
+export const useEditAccountSheet = create<EditAccountSheetState>((set) => ({
   id: undefined,
   isOpen: false,
   onOpen: (id) => set({ isOpen: true, id }),
