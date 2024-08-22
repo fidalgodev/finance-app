@@ -3,8 +3,6 @@ import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useCreateAccount } from "@/features/accounts/api/useCreateAccount";
-import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { insertAccountSchema } from "@/db/schema";
@@ -22,6 +20,8 @@ type Props = {
   id?: string;
   initialValues?: FormValues;
   onDelete?: () => void;
+  onSubmit: (values: FormValues) => void;
+  disabled?: boolean;
 };
 
 export const AccountForm = ({
@@ -30,24 +30,16 @@ export const AccountForm = ({
     name: "",
   },
   onDelete,
+  onSubmit,
+  disabled,
 }: Props) => {
-  const { onClose } = useNewAccount();
-
-  const mutation = useCreateAccount();
-
-  const isDisabled = mutation.isPending;
-
   const form = useForm<FormValues>({
     resolver: zodResolver(insertAccountSchema),
     defaultValues: initialValues,
   });
 
   const handleSubmit = (values: FormValues) => {
-    mutation.mutate(values, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+    onSubmit(values);
   };
 
   const handleDelete = () => {
@@ -68,7 +60,7 @@ export const AccountForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  disabled={isDisabled}
+                  disabled={disabled}
                   placeholder="E.g. Current, Savings, Cash, Credit Card"
                   {...field}
                 />
@@ -76,13 +68,13 @@ export const AccountForm = ({
             </FormItem>
           )}
         />
-        <Button className="w-full" disabled={isDisabled}>
+        <Button className="w-full" disabled={disabled}>
           {id ? "Save changes" : "Create account"}
         </Button>
         {id && (
           <Button
             type="button"
-            disabled={isDisabled}
+            disabled={disabled}
             onClick={handleDelete}
             className="w-full"
             variant="outline"

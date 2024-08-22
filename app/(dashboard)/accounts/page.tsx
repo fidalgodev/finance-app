@@ -1,5 +1,5 @@
 "use client";
-import { useGetAccounts } from "@/features/accounts/api/useGetAccount";
+import { useGetAccounts } from "@/features/accounts/api/useGetAccounts";
 import { Loader2, Plus } from "lucide-react";
 
 import { useNewAccount } from "@/features/accounts/hooks/useNewAccount";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/DataTable";
 import { columns } from "@/app/(dashboard)/accounts/columns";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDelete";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDeleteAccounts";
 
 const AccountsPage = () => {
   const { onOpen } = useNewAccount();
