@@ -25,7 +25,7 @@ export const EditAccountSheet = () => {
     "You're about to delete this account. This action cannot be undone.",
   );
 
-  const getAccountQuery = useGetAccount(id);
+  const accountQuery = useGetAccount(id);
   const editAccountMutation = useEditAccount(id);
   const deleteAccountMutation = useDeleteAccount(id);
 
@@ -38,7 +38,7 @@ export const EditAccountSheet = () => {
   };
 
   const initialValues = {
-    name: getAccountQuery.data?.name || "",
+    name: accountQuery.data?.name || "",
   };
 
   const isDisabled =
@@ -64,7 +64,7 @@ export const EditAccountSheet = () => {
             <SheetTitle>Edit Account</SheetTitle>
             <SheetDescription>Edit the account details below.</SheetDescription>
           </SheetHeader>
-          {getAccountQuery.isLoading ? (
+          {accountQuery.isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader2 className="size-4 animate-spin text-muted-foreground" />
             </div>

@@ -25,7 +25,7 @@ export const EditCategorySheet = () => {
     "You're about to delete this category. This action cannot be undone.",
   );
 
-  const getCategoryQuery = useGetCategory(id);
+  const categoryQuery = useGetCategory(id);
   const editCategoryMutation = useEditCategory(id);
   const deleteCategoryMutation = useDeleteCategory(id);
 
@@ -38,7 +38,7 @@ export const EditCategorySheet = () => {
   };
 
   const initialValues = {
-    name: getCategoryQuery.data?.name || "",
+    name: categoryQuery.data?.name || "",
   };
 
   const isDisabled =
@@ -66,7 +66,7 @@ export const EditCategorySheet = () => {
               Edit the category details below.
             </SheetDescription>
           </SheetHeader>
-          {getCategoryQuery.isLoading ? (
+          {categoryQuery.isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader2 className="size-4 animate-spin text-muted-foreground" />
             </div>
