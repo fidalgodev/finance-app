@@ -23,11 +23,9 @@ import { Textarea } from "@/components/ui/textarea";
 
 // Form schema needs to be a bit different from what the API expects
 // - amount needs to be a string in the form
-// - note is nullable in the API, but in the form it should be an empty string
 const formSchema = z.object({
   ...insertTransactionSchema.shape,
   amount: z.string(),
-  notes: z.string(),
 });
 
 const apiSchema = insertTransactionSchema;
