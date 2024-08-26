@@ -62,11 +62,6 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 }));
 
 // Schema for inserting a new transaction, only fields that are allowed to be inserted via the API are picked
-export const insertTransactionSchema = createInsertSchema(transactions).pick({
-  amount: true,
-  payee: true,
-  notes: true,
-  date: true,
-  accountId: true,
-  categoryId: true,
+export const insertTransactionSchema = createInsertSchema(transactions).omit({
+  id: true,
 });

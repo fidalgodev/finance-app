@@ -1,6 +1,3 @@
-import { db } from "@/db/drizzle";
-import { insertCategorySchema } from "@/db/schema";
-import { categories } from "@/db/schema";
 import { getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { createId } from "@paralleldrive/cuid2";
@@ -8,6 +5,10 @@ import { and, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { z } from "zod";
+
+import { db } from "@/db/drizzle";
+import { insertCategorySchema } from "@/db/schema";
+import { categories } from "@/db/schema";
 
 const app = new Hono()
 
