@@ -77,7 +77,7 @@ export const EditCategorySheet = () => {
           ) : (
             <CategoryForm
               id={id}
-              initialValues={initialValues}
+              defaultValues={initialValues}
               disabled={isDisabled}
               onSubmit={onSubmit}
               onDelete={onDelete}

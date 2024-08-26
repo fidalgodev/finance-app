@@ -33,7 +33,7 @@ export type ApiFormValues = z.input<typeof insertTransactionSchema>;
 
 type Props = {
   id?: string;
-  initialValues?: FormValues;
+  defaultValues?: FormValues;
   onDelete?: () => void;
   onSubmit: (values: ApiFormValues) => void;
   disabled?: boolean;
@@ -45,7 +45,7 @@ type Props = {
 
 export const TransactionForm = ({
   id,
-  initialValues,
+  defaultValues,
   onDelete,
   onSubmit,
   disabled,
@@ -56,7 +56,7 @@ export const TransactionForm = ({
 }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialValues,
+    defaultValues,
   });
 
   const handleSubmit = (values: FormValues) => {

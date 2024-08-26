@@ -19,7 +19,7 @@ export type FormValues = z.input<typeof insertAccountSchema>;
 
 type Props = {
   id?: string;
-  initialValues?: FormValues;
+  defaultValues?: FormValues;
   onDelete?: () => void;
   onSubmit: (values: FormValues) => void;
   disabled?: boolean;
@@ -27,14 +27,14 @@ type Props = {
 
 export const AccountForm = ({
   id,
-  initialValues,
+  defaultValues,
   onDelete,
   onSubmit,
   disabled,
 }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(insertAccountSchema),
-    defaultValues: initialValues,
+    defaultValues,
   });
 
   const handleSubmit = (values: FormValues) => {

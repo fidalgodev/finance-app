@@ -72,7 +72,7 @@ export const EditAccountSheet = () => {
           ) : (
             <AccountForm
               id={id}
-              initialValues={initialValues}
+              defaultValues={initialValues}
               disabled={isDisabled}
               onSubmit={onSubmit}
               onDelete={onDelete}

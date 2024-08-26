@@ -19,7 +19,7 @@ export type FormValues = z.input<typeof insertCategorySchema>;
 
 type Props = {
   id?: string;
-  initialValues?: FormValues;
+  defaultValues?: FormValues;
   onDelete?: () => void;
   onSubmit: (values: FormValues) => void;
   disabled?: boolean;
@@ -27,16 +27,14 @@ type Props = {
 
 export const CategoryForm = ({
   id,
-  initialValues = {
-    name: "",
-  },
+  defaultValues,
   onDelete,
   onSubmit,
   disabled,
 }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(insertCategorySchema),
-    defaultValues: initialValues,
+    defaultValues,
   });
 
   const handleSubmit = (values: FormValues) => {
