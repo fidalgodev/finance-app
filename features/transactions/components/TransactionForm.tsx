@@ -22,16 +22,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 // Form schema needs to be a bit different from what the API expects
-// - amount needs to be a string in the form
+// - amount needs to be a string in the form schema but a number in the API schema
 const formSchema = z.object({
   ...insertTransactionSchema.shape,
   amount: z.string(),
 });
 
-const apiSchema = insertTransactionSchema;
-
 export type FormValues = z.input<typeof formSchema>;
-export type ApiFormValues = z.input<typeof apiSchema>;
+export type ApiFormValues = z.input<typeof insertTransactionSchema>;
 
 type Props = {
   id?: string;
