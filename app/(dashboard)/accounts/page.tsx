@@ -16,10 +16,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 const AccountsPage = () => {
   const newAccountSheet = useNewAccountSheet();
 
-  const getAccountsQuery = useGetAccounts();
+  const accountsQuery = useGetAccounts();
   const deleteAccountsMutation = useBulkDeleteAccounts();
 
-  const isLoadingAccounts = getAccountsQuery.isLoading;
+  const isLoadingAccounts = accountsQuery.isLoading;
   const isDeletingAccounts = deleteAccountsMutation.isPending;
 
   const isDisabled = isDeletingAccounts || isLoadingAccounts;
@@ -54,7 +54,7 @@ const AccountsPage = () => {
         <CardContent>
           <DataTable
             columns={columns}
-            data={getAccountsQuery.data || []}
+            data={accountsQuery.data || []}
             filterKey="name"
             onDelete={(rows) => {
               const ids = rows.map((r) => r.original.id);

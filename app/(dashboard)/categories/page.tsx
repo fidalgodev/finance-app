@@ -16,10 +16,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 const CategoriesPage = () => {
   const newCategorySheet = useNewCategorySheet();
 
-  const getCategoriesQuery = useGetCategories();
+  const categoriesQuery = useGetCategories();
   const deleteCategoriesMutation = useBulkDeleteCategories();
 
-  const isLoadingCategories = getCategoriesQuery.isLoading;
+  const isLoadingCategories = categoriesQuery.isLoading;
   const isDeletingCategories = deleteCategoriesMutation.isPending;
 
   const isDisabled = isDeletingCategories || isLoadingCategories;
@@ -56,7 +56,7 @@ const CategoriesPage = () => {
         <CardContent>
           <DataTable
             columns={columns}
-            data={getCategoriesQuery.data || []}
+            data={categoriesQuery.data || []}
             filterKey="name"
             onDelete={(rows) => {
               const ids = rows.map((r) => r.original.id);
