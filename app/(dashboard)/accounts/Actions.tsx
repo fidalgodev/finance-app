@@ -2,8 +2,8 @@
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
-import { useDeleteAccount } from "@/features/accounts/api/useDeleteAccount";
-import { useEditAccountSheet } from "@/features/accounts/hooks/useEditAccountSheet";
+import { useDeleteAccount } from "@/features/accounts/api";
+import { useEditAccountSheet } from "@/features/accounts/hooks";
 
 import { useConfirm } from "@/hooks/useConfirm";
 

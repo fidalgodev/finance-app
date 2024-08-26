@@ -2,9 +2,11 @@
 
 import { Loader2, Plus } from "lucide-react";
 
-import { useBulkDeleteCategories } from "@/features/categories/api/useBulkDeleteCategories";
-import { useGetCategories } from "@/features/categories/api/useGetCategories";
-import { useNewCategorySheet } from "@/features/categories/hooks/useNewCategorySheet";
+import {
+  useBulkDeleteCategories,
+  useGetCategories,
+} from "@/features/categories/api";
+import { useNewCategorySheet } from "@/features/categories/hooks";
 
 import { columns } from "@/app/(dashboard)/categories/columns";
 

@@ -2,8 +2,8 @@
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
-import { useDeleteCategory } from "@/features/categories/api/useDeleteCategory";
-import { useEditCategorySheet } from "@/features/categories/hooks/useEditCategorySheet";
+import { useDeleteCategory } from "@/features/categories/api";
+import { useEditCategorySheet } from "@/features/categories/hooks";
 
 import { useConfirm } from "@/hooks/useConfirm";
 

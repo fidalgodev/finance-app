@@ -1,7 +1,9 @@
-import { useCreateCategory } from "@/features/categories/api/useCreateCategory";
-import { FormValues } from "@/features/categories/components/CategoryForm";
-import { CategoryForm } from "@/features/categories/components/CategoryForm";
-import { useNewCategorySheet } from "@/features/categories/hooks/useNewCategorySheet";
+import { useCreateCategory } from "@/features/categories/api";
+import {
+  CategoryForm,
+  type FormValues,
+} from "@/features/categories/components";
+import { useNewCategorySheet } from "@/features/categories/hooks";
 
 import {
   Sheet,

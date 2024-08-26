@@ -1,11 +1,12 @@
 import { Loader2 } from "lucide-react";
 
-import { useDeleteAccount } from "@/features/accounts/api/useDeleteAccount";
-import { useEditAccount } from "@/features/accounts/api/useEditAccount";
-import { useGetAccount } from "@/features/accounts/api/useGetAccount";
-import { AccountForm } from "@/features/accounts/components/AccountForm";
-import { FormValues } from "@/features/accounts/components/AccountForm";
-import { useEditAccountSheet } from "@/features/accounts/hooks/useEditAccountSheet";
+import {
+  useDeleteAccount,
+  useEditAccount,
+  useGetAccount,
+} from "@/features/accounts/api";
+import { AccountForm, type FormValues } from "@/features/accounts/components";
+import { useEditAccountSheet } from "@/features/accounts/hooks";
 
 import { useConfirm } from "@/hooks/useConfirm";
 

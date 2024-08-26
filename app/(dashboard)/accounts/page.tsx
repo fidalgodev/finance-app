@@ -2,9 +2,8 @@
 
 import { Loader2, Plus } from "lucide-react";
 
-import { useBulkDeleteAccounts } from "@/features/accounts/api/useBulkDeleteAccounts";
-import { useGetAccounts } from "@/features/accounts/api/useGetAccounts";
-import { useNewAccountSheet } from "@/features/accounts/hooks/useNewAccountSheet";
+import { useBulkDeleteAccounts, useGetAccounts } from "@/features/accounts/api";
+import { useNewAccountSheet } from "@/features/accounts/hooks";
 
 import { columns } from "@/app/(dashboard)/accounts/columns";
 

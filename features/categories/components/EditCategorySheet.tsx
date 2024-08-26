@@ -1,11 +1,15 @@
 import { Loader2 } from "lucide-react";
 
-import { useDeleteCategory } from "@/features/categories/api/useDeleteCategory";
-import { useEditCategory } from "@/features/categories/api/useEditCategory";
-import { useGetCategory } from "@/features/categories/api/useGetCategory";
-import { CategoryForm } from "@/features/categories/components/CategoryForm";
-import { FormValues } from "@/features/categories/components/CategoryForm";
-import { useEditCategorySheet } from "@/features/categories/hooks/useEditCategorySheet";
+import {
+  useDeleteCategory,
+  useEditCategory,
+  useGetCategory,
+} from "@/features/categories/api";
+import {
+  CategoryForm,
+  type FormValues,
+} from "@/features/categories/components";
+import { useEditCategorySheet } from "@/features/categories/hooks";
 
 import { useConfirm } from "@/hooks/useConfirm";
 

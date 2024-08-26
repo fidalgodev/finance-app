@@ -1,7 +1,6 @@
-import { useCreateAccount } from "@/features/accounts/api/useCreateAccount";
-import { AccountForm } from "@/features/accounts/components/AccountForm";
-import { FormValues } from "@/features/accounts/components/AccountForm";
-import { useNewAccountSheet } from "@/features/accounts/hooks/useNewAccountSheet";
+import { useCreateAccount } from "@/features/accounts/api";
+import { AccountForm, type FormValues } from "@/features/accounts/components";
+import { useNewAccountSheet } from "@/features/accounts/hooks";
 
 import {
   Sheet,
