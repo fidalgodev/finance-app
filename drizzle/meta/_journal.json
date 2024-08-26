@@ -43,6 +43,13 @@
       "when": 1724628463851,
       "tag": "0005_faithful_spitfire",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1724634437894,
+      "tag": "0006_tranquil_pixie",
+      "breakpoints": true
     }
   ]
 }
