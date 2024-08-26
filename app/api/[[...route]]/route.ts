@@ -4,6 +4,7 @@ import { HTTPException } from "hono/http-exception";
 import { handle } from "hono/vercel";
 
 import accounts from "./accounts";
+import categories from "./categories";
 
 export const runtime = "edge";
 
@@ -23,7 +24,9 @@ app.onError((err, c) => {
 // Clerk middleware
 app.use("*", clerkMiddleware());
 
-const routes = app.route("/accounts", accounts);
+const routes = app
+  .route("/accounts", accounts)
+  .route("/categories", categories);
 
 export const GET = handle(app);
 export const POST = handle(app);
