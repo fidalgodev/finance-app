@@ -25,7 +25,7 @@ export const useDeleteCategory = (id?: string) => {
     onSuccess: () => {
       toast.success("Category deleted");
 
-      // Invalidate the categories and account query to refetch the data
+      // Invalidate the categories and category query to refetch the data
       queryClient.invalidateQueries({ queryKey: ["category", { id }] });
       queryClient.invalidateQueries({ queryKey: ["categories"] });
 

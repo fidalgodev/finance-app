@@ -12,6 +12,7 @@ export const SheetProvider = () => {
     <>
       <NewAccountSheet />
       <EditAccountSheet />
+
       <NewCategorySheet />
       <EditCategorySheet />
     </>

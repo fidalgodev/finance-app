@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const AccountsPage = () => {
-  const { onOpen } = useNewAccountSheet();
+  const newAccountSheet = useNewAccountSheet();
 
   const getAccountsQuery = useGetAccounts();
   const deleteAccountsMutation = useBulkDeleteAccounts();
@@ -46,7 +46,7 @@ const AccountsPage = () => {
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">Accounts page</CardTitle>
-          <Button size="sm" onClick={() => onOpen()}>
+          <Button size="sm" onClick={newAccountSheet.onOpen}>
             <Plus className="mr-2 size-4" />
             Add new
           </Button>

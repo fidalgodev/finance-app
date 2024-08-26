@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CategoriesPage = () => {
-  const { onOpen } = useNewCategorySheet();
+  const newCategorySheet = useNewCategorySheet();
 
   const getCategoriesQuery = useGetCategories();
   const deleteCategoriesMutation = useBulkDeleteCategories();
@@ -48,7 +48,7 @@ const CategoriesPage = () => {
           <CardTitle className="line-clamp-1 text-xl">
             Categories page
           </CardTitle>
-          <Button size="sm" onClick={() => onOpen()}>
+          <Button size="sm" onClick={newCategorySheet.onOpen}>
             <Plus className="mr-2 size-4" />
             Add new
           </Button>
