@@ -20,6 +20,12 @@ export const useBulkDeleteAccounts = () => {
       const response = await client.api.accounts["bulk-delete"].$post({
         json: values,
       });
+
+      // We need to throw an error to trigger the onError callback
+      if (!response.ok) {
+        throw new Error();
+      }
+
       return await response.json();
     },
     onSuccess: () => {

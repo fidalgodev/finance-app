@@ -160,6 +160,16 @@ const app = new Hono()
 
     // Insert the transaction
     // TODO: Make sure the accountId passed in belongs to the user
+
+    // Test throw error
+    // TODO: See if we can make useMutation work without throwing an error in the useMutation hook
+    // Keep this to test the error handling
+    if (Math.random() > 0.1) {
+      throw new HTTPException(500, {
+        res: c.json({ error: "Something went wrrong" }, 500),
+      });
+    }
+
     const [data] = await db
       .insert(transactions)
       .values({

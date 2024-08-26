@@ -24,6 +24,11 @@ export const useEditAccount = (id?: string) => {
         json: values,
       });
 
+      // We need to throw an error to trigger the onError callback
+      if (!response.ok) {
+        throw new Error();
+      }
+
       return await response.json();
     },
     onSuccess: () => {
