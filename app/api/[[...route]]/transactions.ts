@@ -159,6 +159,7 @@ const app = new Hono()
     }
 
     // Insert the transaction
+    // TODO: Make sure the accountId passed in belongs to the user
     const [data] = await db
       .insert(transactions)
       .values({
@@ -169,6 +170,36 @@ const app = new Hono()
 
     return c.json({ data });
   })
+
+  // Bulk insert transactions
+  .post(
+    "/bulk-create",
+    zValidator("json", z.array(insertTransactionSchema)),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+
+      if (!auth?.userId) {
+        throw new HTTPException(401, {
+          res: c.json({ error: "Unauthorized" }, 401),
+        });
+      }
+
+      // Insert the transactions
+      // TODO: Make sure the accountId passed in belongs to the user
+      const data = await db
+        .insert(transactions)
+        .values(
+          values.map((value) => ({
+            id: createId(),
+            ...value,
+          })),
+        )
+        .returning();
+
+      return c.json({ data });
+    },
+  )
 
   // Bulk delete transactions
   .post(
