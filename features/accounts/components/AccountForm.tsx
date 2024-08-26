@@ -1,8 +1,9 @@
-import { insertAccountSchema } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { insertAccountSchema } from "@/db/schema";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export type FormValues = z.infer<typeof insertAccountSchema>;
+export type FormValues = z.input<typeof insertAccountSchema>;
 
 type Props = {
   id?: string;
@@ -26,9 +27,7 @@ type Props = {
 
 export const AccountForm = ({
   id,
-  initialValues = {
-    name: "",
-  },
+  initialValues,
   onDelete,
   onSubmit,
   disabled,

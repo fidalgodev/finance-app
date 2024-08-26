@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export type FormValues = z.infer<typeof insertCategorySchema>;
+export type FormValues = z.input<typeof insertCategorySchema>;
 
 type Props = {
   id?: string;

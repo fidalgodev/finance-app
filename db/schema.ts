@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const accounts = pgTable("accounts", {
   id: text("id").primaryKey(),
@@ -62,6 +63,9 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 }));
 
 // Schema for inserting a new transaction, only fields that are allowed to be inserted via the API are picked
-export const insertTransactionSchema = createInsertSchema(transactions).omit({
+export const insertTransactionSchema = createInsertSchema(transactions, {
+  // Date will be coerced to a Date object from a string when validating
+  date: z.coerce.date(),
+}).omit({
   id: true,
 });
