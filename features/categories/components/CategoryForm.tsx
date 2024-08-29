@@ -25,9 +25,13 @@ type Props = {
   disabled?: boolean;
 };
 
+const defaultCategoryValues: FormValues = {
+  name: "",
+};
+
 export const CategoryForm = ({
   id,
-  defaultValues,
+  defaultValues = defaultCategoryValues,
   onDelete,
   onSubmit,
   disabled,

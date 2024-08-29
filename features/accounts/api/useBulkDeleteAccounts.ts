@@ -31,8 +31,9 @@ export const useBulkDeleteAccounts = () => {
     onSuccess: () => {
       toast.success("Accounts deleted");
 
-      // Invalidate the accounts query to refetch the data
+      // Invalidate queries to refetch the data
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       // TODO: Invalidate the summary query
     },

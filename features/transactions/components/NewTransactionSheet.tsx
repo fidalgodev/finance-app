@@ -1,7 +1,6 @@
 import { Loader2 } from "lucide-react";
 
-import { useCreateAccount } from "@/features/accounts/api/useCreateAccount";
-import { useGetAccounts } from "@/features/accounts/api/useGetAccounts";
+import { useCreateAccount, useGetAccounts } from "@/features/accounts/api";
 import { useCreateCategory, useGetCategories } from "@/features/categories/api";
 import { useCreateTransaction } from "@/features/transactions/api";
 import {
@@ -57,7 +56,7 @@ export const NewTransactionSheet = () => {
     });
   };
 
-  const isPending =
+  const isDisabled =
     createTransactionMutation.isPending ||
     categoriesMutation.isPending ||
     accountsMutation.isPending;
@@ -78,7 +77,7 @@ export const NewTransactionSheet = () => {
         ) : (
           <TransactionForm
             onSubmit={onSubmit}
-            disabled={isPending}
+            disabled={isDisabled}
             categoryOptions={categoriesOptions}
             onCreateCategory={onCreateCategory}
             accountOptions={accountsOptions}

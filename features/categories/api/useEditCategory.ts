@@ -34,9 +34,10 @@ export const useEditCategory = (id?: string) => {
     onSuccess: () => {
       toast.success("Category updated");
 
-      // Invalidate the categories and category query to refetch the data
+      // Invalidate queries to refetch the data
       queryClient.invalidateQueries({ queryKey: ["category", { id }] });
       queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       // TODO: Invalidate summary and transaction queries
     },

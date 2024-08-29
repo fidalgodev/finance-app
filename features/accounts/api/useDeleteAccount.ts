@@ -30,9 +30,10 @@ export const useDeleteAccount = (id?: string) => {
     onSuccess: () => {
       toast.success("Account deleted");
 
-      // Invalidate the accounts and account query to refetch the data
+      // Invalidate queries to refetch the data
       queryClient.invalidateQueries({ queryKey: ["account", { id }] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       // TODO: Invalidate summary and transaction queries
     },

@@ -37,6 +37,11 @@ export const AmountInput = ({
     onChange(invertedValue.toString());
   };
 
+  const onValueChange = (value: string | undefined) => {
+    // Convert to empty string if value is 0 or undefined
+    onChange(value ?? "");
+  };
+
   return (
     <div className="relative">
       <TooltipProvider>
@@ -65,7 +70,7 @@ export const AmountInput = ({
 
       <CurrencyInput
         value={value}
-        onValueChange={onChange}
+        onValueChange={onValueChange}
         placeholder={placeholder}
         decimalsLimit={2}
         decimalScale={2}
@@ -73,6 +78,7 @@ export const AmountInput = ({
         prefix="$"
         className="pl-10 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       />
+
       <p className="text-xs text-muted-foreground mt-2">
         {isIncome && "This will count as income"}
         {isExpense && "This will count as an expense"}

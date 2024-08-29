@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 // Form schema needs to be a bit different from what the API expects
-// - amount needs to be a string in the form schema but a number in the API schema
+// - amount needs to be a string and optional in the form schema but a number in the API schema
 const formSchema = z.object({
   ...insertTransactionSchema.shape,
   amount: z.string(),
@@ -43,9 +43,18 @@ type Props = {
   onCreateCategory: (name: string) => void;
 };
 
+const defaultTransactionValues: FormValues = {
+  date: new Date(),
+  accountId: "",
+  categoryId: null,
+  payee: "",
+  amount: "",
+  notes: "",
+};
+
 export const TransactionForm = ({
   id,
-  defaultValues,
+  defaultValues = defaultTransactionValues,
   onDelete,
   onSubmit,
   disabled,

@@ -25,9 +25,13 @@ type Props = {
   disabled?: boolean;
 };
 
+const defaultAccountValues: FormValues = {
+  name: "",
+};
+
 export const AccountForm = ({
   id,
-  defaultValues,
+  defaultValues = defaultAccountValues,
   onDelete,
   onSubmit,
   disabled,

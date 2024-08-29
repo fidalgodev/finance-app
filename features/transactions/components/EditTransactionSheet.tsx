@@ -1,12 +1,17 @@
 import { Loader2 } from "lucide-react";
 
+import { useCreateAccount, useGetAccounts } from "@/features/accounts/api";
+import { useCreateCategory, useGetCategories } from "@/features/categories/api";
 import {
-  useDeleteAccount,
-  useEditAccount,
-  useGetAccount,
-} from "@/features/accounts/api";
-import { AccountForm, type FormValues } from "@/features/accounts/components";
-import { useEditAccountSheet } from "@/features/accounts/hooks";
+  useDeleteTransaction,
+  useEditTransaction,
+  useGetTransaction,
+} from "@/features/transactions/api";
+import {
+  type ApiFormValues,
+  TransactionForm,
+} from "@/features/transactions/components";
+import { useEditTransactionSheet } from "@/features/transactions/hooks";
 
 import { useConfirm } from "@/hooks/useConfirm";
 
@@ -19,37 +24,80 @@ import {
 } from "@/components/ui/sheet";
 
 export const EditTransactionSheet = () => {
-  const { isOpen, onClose, id } = useEditAccountSheet();
+  const { isOpen, onClose, id } = useEditTransactionSheet();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You're about to delete this account. This action cannot be undone.",
+    "You're about to delete this transaction. This action cannot be undone.",
   );
 
-  const accountQuery = useGetAccount(id);
-  const editAccountMutation = useEditAccount(id);
-  const deleteAccountMutation = useDeleteAccount(id);
+  const transactionQuery = useGetTransaction(id);
+  const editTransactionMutation = useEditTransaction(id);
+  const deleteTransactionMutation = useDeleteTransaction(id);
 
-  const onSubmit = (values: FormValues) => {
-    editAccountMutation.mutate(values, {
+  // Categories
+  const categoriesQuery = useGetCategories();
+  const categoriesMutation = useCreateCategory();
+
+  const onCreateCategory = (name: string) => {
+    categoriesMutation.mutate({ name });
+  };
+
+  const categoriesOptions = (categoriesQuery.data ?? []).map((category) => ({
+    label: category.name,
+    value: category.id,
+  }));
+
+  // Accounts
+  const accountsQuery = useGetAccounts();
+  const accountsMutation = useCreateAccount();
+
+  const onCreateAccount = (name: string) => {
+    accountsMutation.mutate({ name });
+  };
+
+  const accountsOptions = (accountsQuery.data ?? []).map((account) => ({
+    label: account.name,
+    value: account.id,
+  }));
+
+  const onSubmit = (values: ApiFormValues) => {
+    editTransactionMutation.mutate(values, {
       onSuccess: () => {
         onClose();
       },
     });
   };
 
+  const {
+    accountId = "",
+    categoryId = "",
+    payee = "",
+    date = "",
+    amount = "",
+    notes = "",
+  } = transactionQuery.data || {};
+
   const initialValues = {
-    name: accountQuery.data?.name || "",
+    accountId,
+    categoryId,
+    payee,
+    date: new Date(date),
+    amount: amount.toString(),
+    notes,
   };
 
   const isDisabled =
-    editAccountMutation.isPending || deleteAccountMutation.isPending;
+    editTransactionMutation.isPending ||
+    deleteTransactionMutation.isPending ||
+    categoriesMutation.isPending ||
+    accountsMutation.isPending;
 
   const onDelete = async () => {
     const ok = await confirm();
 
     if (ok) {
-      deleteAccountMutation.mutate(undefined, {
+      deleteTransactionMutation.mutate(undefined, {
         onSuccess: () => {
           onClose();
         },
@@ -62,20 +110,26 @@ export const EditTransactionSheet = () => {
       <Sheet open={isOpen} onOpenChange={onClose}>
         <SheetContent className="space-y-4">
           <SheetHeader>
-            <SheetTitle>Edit Account</SheetTitle>
-            <SheetDescription>Edit the account details below.</SheetDescription>
+            <SheetTitle>Edit Transaction</SheetTitle>
+            <SheetDescription>
+              Edit the transaction details below.
+            </SheetDescription>
           </SheetHeader>
-          {accountQuery.isLoading ? (
+          {transactionQuery.isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader2 className="size-4 animate-spin text-muted-foreground" />
             </div>
           ) : (
-            <AccountForm
+            <TransactionForm
               id={id}
               defaultValues={initialValues}
-              disabled={isDisabled}
               onSubmit={onSubmit}
+              disabled={isDisabled}
               onDelete={onDelete}
+              categoryOptions={categoriesOptions}
+              onCreateCategory={onCreateCategory}
+              accountOptions={accountsOptions}
+              onCreateAccount={onCreateAccount}
             />
           )}
         </SheetContent>
