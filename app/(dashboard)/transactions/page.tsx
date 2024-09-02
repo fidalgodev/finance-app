@@ -34,6 +34,8 @@ const INITIAL_IMPORT_RESULTS = {
   meta: {},
 };
 
+type CSVTransaction = Pick<Transaction, "payee" | "amount" | "date">;
+
 const TransactionsPage = () => {
   const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState(VARIANTS.LIST);
@@ -61,7 +63,7 @@ const TransactionsPage = () => {
     setVariant(VARIANTS.LIST);
   };
 
-  const onSubmitImport = async (values: Transaction[]) => {
+  const onSubmitImport = async (values: CSVTransaction[]) => {
     const accountId = await confirm();
 
     console.log(accountId, "accountId");

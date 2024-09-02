@@ -39,10 +39,10 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
     }));
   };
 
-  // Check how many required options are selected
-  const progress = Object.values(selectedColumns).reduce((acc, column) => {
-    return requiredOptions.includes(column) ? acc + 1 : acc;
-  }, 0);
+  // Check how many options are selected
+  const progress = Object.values(selectedColumns).filter(
+    (v) => v && v !== "skip",
+  ).length;
 
   const handleImport = () => {
     const mappedData = {

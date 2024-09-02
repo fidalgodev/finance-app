@@ -22,7 +22,6 @@ export const TableHeadSelect = ({
   onChange,
 }: Props) => {
   const currentSelection = selectedColumns[`column_${columnIndex}`];
-  const options = [...requiredOptions, "notes"];
 
   const isOptionDisabled = (option: string) => {
     // Check if the option is already selected in another column
@@ -44,7 +43,7 @@ export const TableHeadSelect = ({
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="skip">Skip</SelectItem>
-        {options.map((option, index) => {
+        {requiredOptions.map((option, index) => {
           return (
             <SelectItem
               key={index}
