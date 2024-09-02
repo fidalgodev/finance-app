@@ -35,13 +35,13 @@ const formSchema = z.object({
 });
 
 export type FormValues = z.input<typeof formSchema>;
-export type ApiFormValues = z.input<typeof insertTransactionSchema>;
+export type ApiValues = z.input<typeof insertTransactionSchema>;
 
 type Props = {
   id?: string;
   defaultValues?: FormValues;
   onDelete?: () => void;
-  onSubmit: (values: ApiFormValues) => void;
+  onSubmit: (values: ApiValues) => void;
   disabled?: boolean;
   accountOptions: { label: string; value: string }[];
   categoryOptions: { label: string; value: string }[];

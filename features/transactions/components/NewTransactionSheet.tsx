@@ -4,7 +4,7 @@ import { useCreateAccount, useGetAccounts } from "@/features/accounts/api";
 import { useCreateCategory, useGetCategories } from "@/features/categories/api";
 import { useCreateTransaction } from "@/features/transactions/api";
 import {
-  type ApiFormValues,
+  type ApiValues,
   TransactionForm,
 } from "@/features/transactions/components";
 import { useNewTransactionSheet } from "@/features/transactions/hooks";
@@ -26,10 +26,6 @@ export const NewTransactionSheet = () => {
   const categoriesQuery = useGetCategories();
   const categoriesMutation = useCreateCategory();
 
-  const onCreateCategory = (name: string) => {
-    categoriesMutation.mutate({ name });
-  };
-
   const categoriesOptions = (categoriesQuery.data ?? []).map((category) => ({
     label: category.name,
     value: category.id,
@@ -39,16 +35,12 @@ export const NewTransactionSheet = () => {
   const accountsQuery = useGetAccounts();
   const accountsMutation = useCreateAccount();
 
-  const onCreateAccount = (name: string) => {
-    accountsMutation.mutate({ name });
-  };
-
   const accountsOptions = (accountsQuery.data ?? []).map((account) => ({
     label: account.name,
     value: account.id,
   }));
 
-  const onSubmit = (values: ApiFormValues) => {
+  const onSubmit = (values: ApiValues) => {
     createTransactionMutation.mutate(values, {
       onSuccess: () => {
         onClose();
@@ -79,9 +71,7 @@ export const NewTransactionSheet = () => {
             onSubmit={onSubmit}
             disabled={isDisabled}
             categoryOptions={categoriesOptions}
-            onCreateCategory={onCreateCategory}
             accountOptions={accountsOptions}
-            onCreateAccount={onCreateAccount}
           />
         )}
       </SheetContent>
