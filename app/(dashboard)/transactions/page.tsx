@@ -1,6 +1,9 @@
 "use client";
 
+import { error } from "console";
 import { Loader2, Plus } from "lucide-react";
+import { Inika } from "next/font/google";
+import { useState } from "react";
 
 import {
   useBulkDeleteTransactions,
@@ -15,7 +18,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { ImportCard } from "./ImportCard";
+import { UploadButton } from "./UploadButton";
+
+enum VARIANTS {
+  LIST = "LIST",
+  IMPORT = "IMPORT",
+}
+
+const INITIAL_IMPORT_RESULTS = {
+  data: [],
+  errors: [],
+  meta: {},
+};
+
 const TransactionsPage = () => {
+  const [variant, setVariant] = useState(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+
   const newTransactionSheet = useNewTransactionSheet();
 
   const transactionsQuery = useGetTransactions();
@@ -25,6 +45,17 @@ const TransactionsPage = () => {
   const isDeletingTransactions = deleteTransactionsMutation.isPending;
 
   const isDisabled = isDeletingTransactions || isLoadingTransactions;
+
+  // CSV import
+  const onUpload = (data: typeof INITIAL_IMPORT_RESULTS) => {
+    setImportResults(data);
+    setVariant(VARIANTS.IMPORT);
+  };
+
+  const onCancelImport = () => {
+    setImportResults(INITIAL_IMPORT_RESULTS);
+    setVariant(VARIANTS.LIST);
+  };
 
   if (isLoadingTransactions) {
     return (
@@ -43,15 +74,34 @@ const TransactionsPage = () => {
     );
   }
 
+  if (variant === VARIANTS.IMPORT) {
+    return (
+      <>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={() => {}}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="mx-auto -mt-24 max-w-screen-xl pb-10">
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">Transactions</CardTitle>
-          <Button size="sm" onClick={newTransactionSheet.onOpen}>
-            <Plus className="mr-2 size-4" />
-            Add new
-          </Button>
+          <div className="flex gap-2 flex-col lg:flex-row">
+            <Button
+              size="sm"
+              className="w-full lg:w-auto"
+              onClick={newTransactionSheet.onOpen}
+            >
+              <Plus className="mr-2 size-4" />
+              Add new
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
