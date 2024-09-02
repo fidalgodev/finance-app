@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, Minus, MinusCircle, PlusCircle } from "lucide-react";
+import { Info, MinusCircle, PlusCircle } from "lucide-react";
 import CurrencyInput from "react-currency-input-field";
 
 import { cn } from "@/lib/utils";

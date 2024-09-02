@@ -9,7 +9,7 @@ import { convertAmountToMiliUnits } from "@/lib/utils";
 
 import { AmountInput } from "@/components/AmountInput";
 import { DatePicker } from "@/components/DatePicker";
-import { Select } from "@/components/Select";
+// import { Select } from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,6 +19,13 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 // Form schema needs to be a bit different from what the API expects
@@ -39,8 +46,6 @@ type Props = {
   disabled?: boolean;
   accountOptions: { label: string; value: string }[];
   categoryOptions: { label: string; value: string }[];
-  onCreateAccount: (name: string) => void;
-  onCreateCategory: (name: string) => void;
 };
 
 const defaultTransactionValues: FormValues = {
@@ -60,8 +65,6 @@ export const TransactionForm = ({
   disabled,
   accountOptions,
   categoryOptions,
-  onCreateAccount,
-  onCreateCategory,
 }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -112,13 +115,21 @@ export const TransactionForm = ({
               <FormLabel>Account</FormLabel>
               <FormControl>
                 <Select
-                  placeholder="Select an account"
-                  options={accountOptions}
-                  onCreate={onCreateAccount}
                   value={field.value}
-                  onChange={field.onChange}
+                  onValueChange={field.onChange}
                   disabled={disabled}
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an account" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {accountOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
             </FormItem>
           )}
@@ -133,13 +144,21 @@ export const TransactionForm = ({
               <FormLabel>Category</FormLabel>
               <FormControl>
                 <Select
-                  placeholder="Select a category"
-                  options={categoryOptions}
-                  onCreate={onCreateCategory}
-                  value={field.value}
-                  onChange={field.onChange}
+                  value={field.value ?? ""}
+                  onValueChange={field.onChange}
                   disabled={disabled}
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categoryOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
             </FormItem>
           )}

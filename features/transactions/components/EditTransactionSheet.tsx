@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react";
 
-import { useCreateAccount, useGetAccounts } from "@/features/accounts/api";
-import { useCreateCategory, useGetCategories } from "@/features/categories/api";
+import { useGetAccounts } from "@/features/accounts/api";
+import { useGetCategories } from "@/features/categories/api";
 import {
   useDeleteTransaction,
   useEditTransaction,
@@ -37,11 +37,6 @@ export const EditTransactionSheet = () => {
 
   // Categories
   const categoriesQuery = useGetCategories();
-  const categoriesMutation = useCreateCategory();
-
-  const onCreateCategory = (name: string) => {
-    categoriesMutation.mutate({ name });
-  };
 
   const categoriesOptions = (categoriesQuery.data ?? []).map((category) => ({
     label: category.name,
@@ -50,11 +45,6 @@ export const EditTransactionSheet = () => {
 
   // Accounts
   const accountsQuery = useGetAccounts();
-  const accountsMutation = useCreateAccount();
-
-  const onCreateAccount = (name: string) => {
-    accountsMutation.mutate({ name });
-  };
 
   const accountsOptions = (accountsQuery.data ?? []).map((account) => ({
     label: account.name,
@@ -88,10 +78,7 @@ export const EditTransactionSheet = () => {
   };
 
   const isDisabled =
-    editTransactionMutation.isPending ||
-    deleteTransactionMutation.isPending ||
-    categoriesMutation.isPending ||
-    accountsMutation.isPending;
+    editTransactionMutation.isPending || deleteTransactionMutation.isPending;
 
   const onDelete = async () => {
     const ok = await confirm();
@@ -127,9 +114,7 @@ export const EditTransactionSheet = () => {
               disabled={isDisabled}
               onDelete={onDelete}
               categoryOptions={categoriesOptions}
-              onCreateCategory={onCreateCategory}
               accountOptions={accountsOptions}
-              onCreateAccount={onCreateAccount}
             />
           )}
         </SheetContent>

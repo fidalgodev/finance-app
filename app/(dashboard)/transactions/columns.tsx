@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Actions } from "./Actions";
+import { CategoryColumn } from "./CategoryColumn";
 
 export type TransactionsResponseType = InferResponseType<
   typeof client.api.transactions.$get,
@@ -74,13 +75,9 @@ export const columns: ColumnDef<TransactionsResponseType>[] = [
       );
     },
     cell: ({ row }) => {
-      const { category } = row.original;
-      return (
-        <div className={cn("flex items-center", !category && "text-rose-500")}>
-          {!category && <TriangleAlert className="size-4 mr-2 shrink-0" />}
-          {category ? category : "Uncategorized"}
-        </div>
-      );
+      const { category, id } = row.original;
+
+      return <CategoryColumn transactionId={id} category={category} />;
     },
   },
   {
