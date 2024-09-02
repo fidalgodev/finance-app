@@ -1,7 +1,7 @@
 import { format, parse } from "date-fns";
 import { useState } from "react";
 
-import { convertAmountToMiliunits } from "@/lib/utils";
+import { convertAmountToMiliUnits } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,9 +45,41 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
   }, 0);
 
   const handleContinue = () => {
-    const getColumnIndex = (column: string) => {
-      return column.split("_")[1];
+    const mappedData = {
+      headers: headers.map(
+        (_, index) => selectedColumns[`column_${index}`] || null,
+      ),
+      body: body
+        .map((row) =>
+          row.map((cell, index) =>
+            selectedColumns[`column_${index}`] ? cell : null,
+          ),
+        )
+        .filter((row) => row.some((item) => item)),
     };
+
+    console.log({ mappedData });
+
+    const arrayOfData = mappedData.body.map((row) =>
+      row.reduce((acc: any, cell, index) => {
+        const header = mappedData.headers[index];
+        if (header) acc[header] = cell;
+
+        return acc;
+      }, {}),
+    );
+
+    console.log({ arrayOfData });
+
+    const formattedData = arrayOfData.map((item) => ({
+      ...item,
+      amount: convertAmountToMiliUnits(parseFloat(item.amount)),
+      date: format(parse(item.date, dateFormat, new Date()), outputFormat),
+    }));
+
+    console.log({ formattedData });
+
+    onSubmit(formattedData);
   };
 
   return (
