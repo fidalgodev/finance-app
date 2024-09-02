@@ -44,9 +44,10 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
     return requiredOptions.includes(column) ? acc + 1 : acc;
   }, 0);
 
-  const handleContinue = () => {
+  const handleImport = () => {
     const mappedData = {
       headers: headers.map(
+        // Set the header to null if it's not selected
         (_, index) => selectedColumns[`column_${index}`] || null,
       ),
       body: body
@@ -55,12 +56,28 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
             selectedColumns[`column_${index}`] ? cell : null,
           ),
         )
-        .filter((row) => row.some((item) => item)),
+        // Clears empty rows by making sure at least one cell is not null
+        .filter((row) => row.some((cell) => !!cell)),
     };
 
-    console.log({ mappedData });
-
     const arrayOfData = mappedData.body.map((row) =>
+      /**
+        For each row, build an object with the header as the key.
+
+        Example:
+        mappedData.headers = ["null", "date"]
+        mappedData.body = [
+          ["whatever", "2021-01-01"],
+          ["whatever", "2021-01-02"]
+        ]
+
+        Will result in the following:
+        // First cell on each row is skipped because it's not selected in the headers
+        [
+          { date: "2021-01-01" },
+          { date: "2021-01-02" },
+        ]
+      */
       row.reduce((acc: any, cell, index) => {
         const header = mappedData.headers[index];
         if (header) acc[header] = cell;
@@ -69,15 +86,14 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
       }, {}),
     );
 
-    console.log({ arrayOfData });
-
-    const formattedData = arrayOfData.map((item) => ({
-      ...item,
-      amount: convertAmountToMiliUnits(parseFloat(item.amount)),
-      date: format(parse(item.date, dateFormat, new Date()), outputFormat),
+    const formattedData = arrayOfData.map((transaction) => ({
+      ...transaction,
+      amount: convertAmountToMiliUnits(parseFloat(transaction.amount)),
+      date: format(
+        parse(transaction.date, dateFormat, new Date()),
+        outputFormat,
+      ),
     }));
-
-    console.log({ formattedData });
 
     onSubmit(formattedData);
   };
@@ -96,7 +112,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
             <Button
               size="sm"
               disabled={progress < requiredOptions.length}
-              onClick={handleContinue}
+              onClick={handleImport}
               className="w-full lg:w-auto"
             >
               Continue ({progress} / {requiredOptions.length})
