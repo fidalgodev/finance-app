@@ -66,8 +66,6 @@ const TransactionsPage = () => {
   const onSubmitImport = async (values: CSVTransaction[]) => {
     const accountId = await confirm();
 
-    console.log(accountId, "accountId");
-
     if (!accountId) {
       return toast.error("Please select an account");
     }

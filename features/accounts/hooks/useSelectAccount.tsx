@@ -55,8 +55,6 @@ export const useSelectAccount = (): [
     handleClose();
   };
 
-  console.log({ accountsOptions });
-
   const ConfirmationDialog = () => (
     <Dialog open={promise !== null}>
       <DialogContent>

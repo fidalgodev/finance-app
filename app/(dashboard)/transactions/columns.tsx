@@ -48,7 +48,8 @@ export const columns: ColumnDef<TransactionsResponseType>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="-ml-2 p-2"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
@@ -63,16 +64,8 @@ export const columns: ColumnDef<TransactionsResponseType>[] = [
   },
   {
     accessorKey: "category",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Category
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: () => {
+      return <p>Category</p>;
     },
     cell: ({ row }) => {
       const { category, id } = row.original;
@@ -82,30 +75,14 @@ export const columns: ColumnDef<TransactionsResponseType>[] = [
   },
   {
     accessorKey: "payee",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Payee
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: () => {
+      return <p>Payee</p>;
     },
   },
   {
     accessorKey: "amount",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Amount
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: () => {
+      return <p>Amount</p>;
     },
     cell: ({ row }) => {
       const { amount } = row.original;
@@ -122,16 +99,8 @@ export const columns: ColumnDef<TransactionsResponseType>[] = [
   },
   {
     accessorKey: "account",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Account
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: () => {
+      return <p>Account</p>;
     },
   },
   {

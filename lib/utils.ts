@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { eachDayOfInterval, isSameDay } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -24,4 +25,42 @@ export function formatCurrency(amount: number) {
     currency: "USD",
     minimumFractionDigits: 2,
   }).format(amount);
+}
+
+// Calculate the percentage change between two numbers
+export function calculatePercentageChange(
+  current: number,
+  previous: number,
+): number {
+  return ((current - previous) / previous) * 100;
+}
+
+// Fill in missing dates with 0 values
+export function fillMissingDates(
+  activeDays: {
+    date: Date;
+    income: number;
+    expenses: number;
+  }[],
+  startDate: Date,
+  endDate: Date,
+) {
+  if (activeDays.length === 0) {
+    return [];
+  }
+
+  // Create an array of all days between the start and end date
+  const allDays = eachDayOfInterval({ start: startDate, end: endDate });
+
+  const transactionsByDay = allDays.map((day) => {
+    // Check if the day is in the active days array
+    const found = activeDays.find((activeDay) =>
+      isSameDay(activeDay.date, day),
+    );
+
+    // If the day is not found, return a new object with the date and 0 values
+    return found ? found : { date: day, income: 0, expenses: 0 };
+  });
+
+  return transactionsByDay;
 }

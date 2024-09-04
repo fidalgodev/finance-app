@@ -44,7 +44,8 @@ export const columns: ColumnDef<AccountsResponseType>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="-ml-2 p-2"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
