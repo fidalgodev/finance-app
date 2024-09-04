@@ -32,6 +32,11 @@ export function calculatePercentageChange(
   current: number,
   previous: number,
 ): number {
+  // If the last period is 0, return 100% if the current period is not 0
+  if (previous === 0) {
+    return previous === current ? 0 : 100;
+  }
+
   return ((current - previous) / previous) * 100;
 }
 
