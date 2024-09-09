@@ -70,11 +70,13 @@ export function fillMissingDates(
   return transactionsByDay;
 }
 
+type Period = {
+  from: string | Date;
+  to: string | Date;
+};
+
 // Format date range
-export function formatDateRange(period?: {
-  from: Date | string;
-  to: Date | string;
-}) {
+export function formatDateRange(period?: Period) {
   const defaultTo = new Date();
   const defaultFrom = subDays(defaultTo, 30);
 
@@ -82,7 +84,7 @@ export function formatDateRange(period?: {
     return `${format(defaultFrom, "LLL dd")} - ${format(defaultTo, "LLL dd, y")}`;
   }
 
-  if (!period?.to) {
+  if (period.to) {
     return `${format(period.from, "LLL dd")} - ${format(period.to, "LLL dd, y")}`;
   }
 

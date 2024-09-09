@@ -39,19 +39,17 @@ export const DateFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pushToUrl = (dateRange?: DateRange) => {
-    const formatDate = (date?: Date) =>
-      date ? format(date, "yyyy-MM-dd") : "";
-
-    const query = {
-      from: formatDate(dateRange?.from),
-      to: formatDate(dateRange?.to),
-      accountId,
-    };
+    const from = dateRange?.from ? format(dateRange?.from, "yyyy-MM-dd") : null;
+    const to = dateRange?.to ? format(dateRange?.to, "yyyy-MM-dd") : null;
 
     const url = qs.stringifyUrl(
       {
         url: pathname,
-        query,
+        query: {
+          from,
+          to,
+          accountId,
+        },
       },
       { skipEmptyString: true, skipNull: true },
     );
@@ -88,7 +86,11 @@ export const DateFilter = () => {
           <ChevronDown className="ml-2 size-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="lg:w-auto w-full p-0" align="start">
+      <PopoverContent
+        className="lg:w-auto w-full p-0"
+        align="start"
+        onPointerDownOutside={() => setIsOpen(false)}
+      >
         <Calendar
           disabled={false}
           initialFocus
