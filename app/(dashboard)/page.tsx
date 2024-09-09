@@ -1,9 +1,11 @@
 "use client";
 
+import { DataGrid } from "@/components/DataGrid";
+
 export default function Home() {
   return (
-    <>
-      <div>Home page</div>
-    </>
+    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+      <DataGrid />
+    </div>
   );
 }
