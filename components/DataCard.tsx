@@ -87,13 +87,11 @@ export const DataCard = ({
         <p
           className={cn(
             "text-muted-foreground text-sm line-clamp-1",
-            // For expenses, we want to invert the color of the percentage change to show that it's a positive change when it's negative
-            percentageChange > 0 && !inverted
-              ? "text-emerald-500"
-              : "text-rose-500",
-            percentageChange < 0 && !inverted
-              ? "text-rose-500"
-              : "text-emerald-500",
+            // For expenses, we want to invert the color of the percentage change to show that it's a positive change
+            percentageChange > 0 &&
+              (inverted ? "text-rose-500" : "text-emerald-500"),
+            percentageChange < 0 &&
+              (inverted ? "text-rose-500" : "text-emerald-500"),
           )}
         >
           {formatPercentage(percentageChange, { addPrefix: true })} from last
