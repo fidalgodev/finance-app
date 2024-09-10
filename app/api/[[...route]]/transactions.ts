@@ -159,7 +159,19 @@ const app = new Hono()
     }
 
     // Insert the transaction
-    // TODO: Make sure the accountId passed in belongs to the user
+    const userAccounts = await db
+      .select({ id: accounts.id })
+      .from(accounts)
+      .where(eq(accounts.userId, auth.userId));
+
+    const accountIds = userAccounts.map((account) => account.id);
+
+    // Make sure the accountId passed in belongs to the user
+    if (!accountIds.includes(values.accountId)) {
+      throw new HTTPException(400, {
+        res: c.json({ error: "Invalid account id" }, 400),
+      });
+    }
 
     // Test throw error
     // TODO: See if we can make useMutation work without throwing an error in the useMutation hook
