@@ -34,8 +34,7 @@ export const useBulkDeleteCategories = () => {
       // Invalidate queries to refetch the data
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
-
-      // TODO: Invalidate the summary query
+      queryClient.invalidateQueries({ queryKey: ["summary"] });
     },
     onError: () => {
       toast.error("Failed to delete categories");

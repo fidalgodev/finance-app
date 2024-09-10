@@ -196,7 +196,24 @@ const app = new Hono()
       }
 
       // Insert the transactions
-      // TODO: Make sure the accountId passed in belongs to the user
+      const userAccounts = await db
+        .select({ id: accounts.id })
+        .from(accounts)
+        .where(eq(accounts.userId, auth.userId));
+
+      const accountIds = userAccounts.map((account) => account.id);
+
+      // Make sure all accountIds passed in belong to the user
+      const validAccountIds = values.every((value) =>
+        accountIds.includes(value.accountId),
+      );
+
+      if (!validAccountIds) {
+        throw new HTTPException(400, {
+          res: c.json({ error: "Invalid account id" }, 400),
+        });
+      }
+
       const data = await db
         .insert(transactions)
         .values(

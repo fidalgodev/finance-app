@@ -37,8 +37,7 @@ export const useEditTransaction = (id?: string) => {
       // Invalidate the transactions and transaction query to refetch the data
       queryClient.invalidateQueries({ queryKey: ["transaction", { id }] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
-
-      // TODO: Invalidate summary query
+      queryClient.invalidateQueries({ queryKey: ["summary"] });
     },
     onError: () => {
       toast.error("Failed to edit transaction");
