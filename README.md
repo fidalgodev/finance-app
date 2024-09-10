@@ -1,6 +1,8 @@
 This is an app where you can manage your finances.
 You can add accounts, categories, transactions and have an overview of your spendings.
 
+### Check it live [here](https://finance-app-self.vercel.app/) 🚀
+
 ## Getting Started
 
 Create a `.env` file with the following variables:
