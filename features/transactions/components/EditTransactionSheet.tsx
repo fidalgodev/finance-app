@@ -8,7 +8,7 @@ import {
   useGetTransaction,
 } from "@/features/transactions/api";
 import {
-  type ApiFormValues,
+  type ApiValues,
   TransactionForm,
 } from "@/features/transactions/components";
 import { useEditTransactionSheet } from "@/features/transactions/hooks";
@@ -51,7 +51,7 @@ export const EditTransactionSheet = () => {
     value: account.id,
   }));
 
-  const onSubmit = (values: ApiFormValues) => {
+  const onSubmit = (values: ApiValues) => {
     editTransactionMutation.mutate(values, {
       onSuccess: () => {
         onClose();
