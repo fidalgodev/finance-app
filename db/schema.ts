@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { access } from "fs";
 import { z } from "zod";
 
 export const accounts = pgTable("accounts", {
@@ -68,4 +69,10 @@ export const insertTransactionSchema = createInsertSchema(transactions, {
   date: z.coerce.date(),
 }).omit({
   id: true,
+});
+
+export const connectedBanks = pgTable("connected_banks", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  accessToken: text("access_token").notNull(),
 });
